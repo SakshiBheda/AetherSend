@@ -4,9 +4,17 @@ import * as React from "react"
 import { EditorHeader } from "@/components/editor/editor-header"
 import { EditorForm } from "@/components/editor/editor-form"
 import { EditorPreview } from "@/components/editor/editor-preview"
+import { useRouter } from "next/navigation"
 
 export default function EditorPage() {
-  const [content, setContent] = React.useState({
+  const router = useRouter()
+  const [content, setContent] = React.useState<{
+    subject: string
+    from: string
+    recipientGroup: string
+    body: string
+    scheduledAt: Date | null
+  }>({
     subject: "Product Launch: The New Era",
     from: "sender@example.com",
     recipientGroup: "Beta Testers",
@@ -16,7 +24,11 @@ export default function EditorPage() {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-background">
-      <EditorHeader onSchedule={() => {}} />
+      <EditorHeader onSchedule={() => {
+        setTimeout(() => {
+          router.push("/scheduler")
+        }, 1500)
+      }} />
       <div className="flex-1 flex overflow-hidden">
         <div className="w-[480px] border-r border-border bg-card/20 overflow-y-auto p-8 custom-scrollbar">
           <EditorForm

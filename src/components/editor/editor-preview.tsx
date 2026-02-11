@@ -4,6 +4,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Monitor, Smartphone } from "lucide-react"
 import * as React from "react"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { toast } from "sonner"
 
 interface EditorPreviewProps {
   values: {
@@ -54,9 +56,12 @@ export function EditorPreview({ values }: EditorPreviewProps) {
               <div className="text-zinc-500 leading-relaxed text-lg whitespace-pre-wrap min-h-[100px]">
                 {values.body || "Start writing your campaign content in the editor to see it appear here in real-time. You can use Markdown or plain text."}
               </div>
-              <button className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold shadow-xl shadow-indigo-600/20 hover:scale-[1.02] transition-transform">
+              <Button
+                onClick={() => toast.success("This action would trigger your campaign's primary call-to-action.")}
+                className="bg-indigo-600 text-white px-8 h-14 rounded-xl font-bold shadow-xl shadow-indigo-600/20 hover:scale-[1.02] transition-transform w-fit"
+              >
                 Take Action
-              </button>
+              </Button>
             </div>
 
             <div className="pt-12 border-t border-zinc-100 text-[10px] text-zinc-400 text-center space-y-1 font-medium">
