@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
-import { Send, ArrowRight, Github } from "lucide-react"
+import { Send, Github, ArrowLeft } from "lucide-react"
 
 export default function SignupPage() {
   const router = useRouter()
@@ -29,134 +29,136 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-zinc-900" />
-        <div className="relative z-20 flex items-center text-lg font-medium">
-          <div className="flex items-center gap-2 font-bold tracking-tight text-white mr-6">
-            <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-              <Send className="h-5 w-5 text-white" />
-            </div>
-            <span>AetherSend</span>
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#09090b] relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+      <Link
+        href="/"
+        className="absolute top-8 left-8 flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to home
+      </Link>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-[450px] px-6 py-12"
+      >
+        <div className="flex flex-col items-center mb-8">
+          <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+            <Send className="h-6 w-6 text-white" />
           </div>
-        </div>
-        <div className="relative z-20 mt-auto">
-          <blockquote className="space-y-2">
-            <p className="text-lg text-zinc-400">
-              &ldquo;AetherSend has completely transformed how we handle our transactional emails. The scheduling is intuitive and the analytics are gold.&rdquo;
-            </p>
-            <footer className="text-sm">Sofia Davis, CTO at Acme Inc</footer>
-          </blockquote>
-        </div>
-      </div>
-      <div className="lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Create an account
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Enter your details below to create your account
-            </p>
-          </div>
-          <div className="grid gap-6">
-            <form onSubmit={onSubmit}>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="company">Company Name</Label>
-                  <Input
-                    id="company"
-                    placeholder="Acme Inc."
-                    type="text"
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    disabled={isLoading}
-                    required
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="first-name">First Name</Label>
-                    <Input
-                      id="first-name"
-                      placeholder="Jane"
-                      type="text"
-                      disabled={isLoading}
-                      required
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="last-name">Last Name</Label>
-                    <Input
-                      id="last-name"
-                      placeholder="Doe"
-                      type="text"
-                      disabled={isLoading}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    placeholder="name@example.com"
-                    type="email"
-                    autoCapitalize="none"
-                    autoComplete="email"
-                    autoCorrect="off"
-                    disabled={isLoading}
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    placeholder="••••••••"
-                    type="password"
-                    disabled={isLoading}
-                    required
-                  />
-                </div>
-                <Button disabled={isLoading} className="bg-indigo-600 hover:bg-indigo-700">
-                  {isLoading && (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="mr-2 h-4 w-4 border-2 border-white/20 border-t-white rounded-full"
-                    />
-                  )}
-                  Create Account
-                </Button>
-              </div>
-            </form>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-            <Button variant="outline" type="button" disabled={isLoading}>
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
-            </Button>
-          </div>
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            Already have an account?{" "}
-            <Link
-              href="/login"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Log in
-            </Link>
+          <h1 className="text-3xl font-bold tracking-tight text-white text-center">Join AetherSend</h1>
+          <p className="text-zinc-400 mt-2 text-center">
+            Create your account and start sending smarter today.
           </p>
         </div>
-      </div>
+
+        <div className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+          <form onSubmit={onSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="company" className="text-zinc-300">Company Name</Label>
+              <Input
+                id="company"
+                placeholder="Acme Inc."
+                className="bg-black/40 border-white/5 h-11 focus:ring-primary/20"
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="first-name" className="text-zinc-300">First Name</Label>
+                <Input
+                  id="first-name"
+                  placeholder="Jane"
+                  className="bg-black/40 border-white/5 h-11 focus:ring-primary/20"
+                  disabled={isLoading}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="last-name" className="text-zinc-300">Last Name</Label>
+                <Input
+                  id="last-name"
+                  placeholder="Doe"
+                  className="bg-black/40 border-white/5 h-11 focus:ring-primary/20"
+                  disabled={isLoading}
+                  required
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-zinc-300">Email Address</Label>
+              <Input
+                id="email"
+                placeholder="name@example.com"
+                type="email"
+                className="bg-black/40 border-white/5 h-11 focus:ring-primary/20"
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password" title="Password" className="text-zinc-300">Password</Label>
+              <Input
+                id="password"
+                placeholder="••••••••"
+                type="password"
+                className="bg-black/40 border-white/5 h-11 focus:ring-primary/20"
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <Button disabled={isLoading} className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/20 mt-2">
+              {isLoading && (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="mr-2 h-4 w-4 border-2 border-white/20 border-t-white rounded-full"
+                />
+              )}
+              Create Account
+            </Button>
+          </form>
+
+          <div className="relative my-7">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-white/5" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-transparent px-2 text-zinc-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <Button
+            variant="outline"
+            type="button"
+            disabled={isLoading}
+            className="w-full h-12 border-white/5 hover:bg-white/5 text-white rounded-xl"
+            onClick={() => toast.info("GitHub signup coming soon")}
+          >
+            <Github className="mr-2 h-5 w-5" />
+            GitHub
+          </Button>
+        </div>
+
+        <p className="mt-8 text-center text-sm text-zinc-500">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-white hover:text-primary transition-colors font-medium underline underline-offset-4"
+          >
+            Log in
+          </Link>
+        </p>
+      </motion.div>
     </div>
   )
 }

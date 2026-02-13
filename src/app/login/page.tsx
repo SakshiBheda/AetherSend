@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
-import { Send, Github } from "lucide-react"
+import { Send, Github, ArrowLeft } from "lucide-react"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -38,110 +38,115 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-zinc-900" />
-        <div className="relative z-20 flex items-center text-lg font-medium">
-          <div className="flex items-center gap-2 font-bold tracking-tight text-white mr-6">
-            <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-              <Send className="h-5 w-5 text-white" />
-            </div>
-            <span>AetherSend</span>
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#09090b] relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+      <Link
+        href="/"
+        className="absolute top-8 left-8 flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to home
+      </Link>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-[400px] px-6"
+      >
+        <div className="flex flex-col items-center mb-8">
+          <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+            <Send className="h-6 w-6 text-white" />
           </div>
-        </div>
-        <div className="relative z-20 mt-auto">
-          <blockquote className="space-y-2">
-            <p className="text-lg text-zinc-400">
-              &ldquo;The best mail scheduler I've ever used. Simple, fast, and reliable.&rdquo;
-            </p>
-            <footer className="text-sm">Alex Rivera, Founder at TechFlow</footer>
-          </blockquote>
-        </div>
-      </div>
-      <div className="lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Welcome back
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Enter your email to sign in to your account
-            </p>
-          </div>
-          <div className="grid gap-6">
-            <form onSubmit={onSubmit}>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    placeholder="karmarealtors1@gmail.com"
-                    type="email"
-                    autoCapitalize="none"
-                    autoComplete="email"
-                    autoCorrect="off"
-                    disabled={isLoading}
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Password</Label>
-                    <Link
-                      href="/forgot-password"
-                      className="text-xs text-muted-foreground hover:text-primary underline-offset-4 hover:underline"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-                  <Input
-                    id="password"
-                    name="password"
-                    placeholder="••••••••"
-                    type="password"
-                    disabled={isLoading}
-                    required
-                  />
-                </div>
-                <Button disabled={isLoading} className="bg-indigo-600 hover:bg-indigo-700">
-                  {isLoading && (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="mr-2 h-4 w-4 border-2 border-white/20 border-t-white rounded-full"
-                    />
-                  )}
-                  Sign In
-                </Button>
-              </div>
-            </form>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-            <Button variant="outline" type="button" disabled={isLoading}>
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
-            </Button>
-          </div>
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/signup"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Sign up
-            </Link>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Welcome back</h1>
+          <p className="text-zinc-400 mt-2 text-center">
+            Sign in to your AetherSend account to continue.
           </p>
         </div>
-      </div>
+
+        <div className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+          <form onSubmit={onSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-zinc-300">Email Address</Label>
+              <Input
+                id="email"
+                name="email"
+                placeholder="karmarealtors1@gmail.com"
+                type="email"
+                className="bg-black/40 border-white/5 h-12 focus:ring-primary/20"
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" title="Password" className="text-zinc-300">Password</Label>
+                <button
+                  type="button"
+                  onClick={() => toast.info("Password reset link sent to your email (simulated).")}
+                  className="text-xs text-primary hover:underline"
+                >
+                  Forgot password?
+                </button>
+              </div>
+              <Input
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                type="password"
+                className="bg-black/40 border-white/5 h-12 focus:ring-primary/20"
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <Button disabled={isLoading} className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/20">
+              {isLoading && (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="mr-2 h-4 w-4 border-2 border-white/20 border-t-white rounded-full"
+                />
+              )}
+              Sign In
+            </Button>
+          </form>
+
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-white/5" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-transparent px-2 text-zinc-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <Button
+            variant="outline"
+            type="button"
+            disabled={isLoading}
+            className="w-full h-12 border-white/5 hover:bg-white/5 text-white rounded-xl"
+            onClick={() => toast.info("GitHub login coming soon")}
+          >
+            <Github className="mr-2 h-5 w-5" />
+            GitHub
+          </Button>
+        </div>
+
+        <p className="mt-8 text-center text-sm text-zinc-500">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/signup"
+            className="text-white hover:text-primary transition-colors font-medium underline underline-offset-4"
+          >
+            Create an account
+          </Link>
+        </p>
+      </motion.div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
-import { User, Bell, Shield, Key, Mail } from "lucide-react"
+import { User, Bell, Shield, Key } from "lucide-react"
 
 export default function SettingsPage() {
   const handleSave = () => {
